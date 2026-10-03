@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TikTok-Freigabe – 7calene</title>
+<style>
+  body { margin: 0; background: #0b0b10; color: #ececf2; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; padding: 40px 16px; text-align: center; }
+  code { display: block; word-break: break-all; background: #16161f; border: 1px solid #2a2a38; padding: 14px; border-radius: 10px; margin: 18px auto; max-width: 560px; font-size: 15px; }
+  button { background: #9146ff; color: #fff; border: 0; padding: 10px 20px; border-radius: 10px; font-weight: 600; cursor: pointer; }
+  .muted { color: #a3a3b5; font-size: 14px; }
+</style>
+</head>
+<body>
+<h1>TikTok-Freigabe</h1>
+<p id="status" class="muted">Freigabe-Code wird gelesen …</p>
+<code id="code">–</code>
+<button id="copy" hidden>Code kopieren</button>
+<p class="muted">Den Code im Terminal einfügen, in dem die Einrichtung läuft. Die Seite speichert und sendet nichts.</p>
+<script>
+  const params = new URLSearchParams(location.search);
+  const code = params.get("code"), error = params.get("error_description") || params.get("error");
+  const status = document.getElementById("status"), box = document.getElementById("code"), button = document.getElementById("copy");
+  if (code) {
+    box.textContent = code; status.textContent = "Freigabe erteilt – das ist dein Code:"; button.hidden = false;
+    button.onclick = () => navigator.clipboard.writeText(code).then(() => button.textContent = "Kopiert ✓");
+  } else {
+    status.textContent = error ? "TikTok meldet: " + error : "Kein Code gefunden – diese Seite wird nur nach der TikTok-Anmeldung aufgerufen.";
+  }
+</script>
+</body>
+</html>
